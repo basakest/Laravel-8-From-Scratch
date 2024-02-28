@@ -1,4 +1,21 @@
 body {
-    background: navy;
-    color: white;
+    background: white;
+    color: #222222;
+    max-width: 600px;
+    /* 使对应的内容居中 */
+    margin: auto;
+    font-family: sans-serif;
+}
+
+p {
+    line-height: 1.6;
+}
+
+/* 如果两个 <article> 直接相连, 选中第二个, 中间不能被其他的元素隔开, 如 <p>sss</p>, 但测试无标签的 sss 不会影响到该选择器 */
+article + article {
+    /* rem is a relative unit in CSS, which stand for "root em". It is relative to the root element(<html>
+    ), ro the size of the font-size of the root element. */
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px solid #c5c5c5;
 }
