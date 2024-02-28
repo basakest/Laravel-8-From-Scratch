@@ -20,6 +20,7 @@ Route::get('/', function () {
 Route::get('/post/{post}', function ($slug) {
     // dd(__DIR__);
     $path = __DIR__ . "/../resources/posts/{$slug}.html";
+    // ddd($path);
     if (!file_exists($path)) {
         // dd('file not exists');
         // ddd('file not exists');
@@ -28,4 +29,4 @@ Route::get('/post/{post}', function ($slug) {
     }
     $post = file_get_contents($path);
     return view('post', ['post' => $post]);
-});
+})->where('post', '[A-z_\-]+');
