@@ -43,6 +43,17 @@ class Post
         // return cache()->remember("posts.{$slug}", now()->addMinutes(20), fn() => static::all()->firstWhere('slug', $slug));
     }
 
+    public static function findOrFail(string $slug)
+    {
+        $post = static::find($slug);
+
+        if (!$post) {
+            throw new ModelNotFoundException();
+        }
+
+        return $post;
+    }
+
     /**
      * @return Collection
      */
