@@ -40,7 +40,7 @@ class Post
     public static function find(string $slug)
     {
         return static::all()->firstWhere('slug', $slug);
-        return cache()->remember("posts.{$slug}", now()->addMinutes(20), fn() => static::all()->firstWhere('slug', $slug));
+        // return cache()->remember("posts.{$slug}", now()->addMinutes(20), fn() => static::all()->firstWhere('slug', $slug));
     }
 
     /**
@@ -48,7 +48,8 @@ class Post
      */
     public static function all(): Collection
     {
-        return collect(File::files(resource_path('posts')))
+        // 调用 map 方法后, 似乎不会触发 Collection 类的自动提示, 有什么解决办法吗?
+        return cache()->rememberForever('post.all', fn() => collect(File::files(resource_path('posts')))
             ->map(fn(SplFileInfo $file) => YamlFrontMatter::parseFile($file->getPathname()))
             ->map(fn(Document $document) => new Post(
                 $document->title,
@@ -56,6 +57,7 @@ class Post
                 $document->date,
                 $document->body(),
                 $document->slug,
-            ));
+            ))
+            ->sortByDesc('date'));
     }
 }
