@@ -1,9 +1,7 @@
 <?php
 
 use App\Models\Post;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +18,12 @@ Route::get('/', function () {
     return view('posts', ['posts' => Post::all()]);
 });
 
-Route::get('/post/{post}', function ($id) {
-    return view('post', ['post' => Post::findOrFail($id)]);
+// Route Model Binding
+// when you type hint a model in the corresponding route function(the Post before $post),
+// and the variable name matches the route segment name(like {post} and $post),
+// Laravel will automatically fetch the model instance that has an ID matching the corresponding value from the uri
+// Route::get('/post/{post:slug}' will find the model by slug column
+// or you can override the getRouteKeyName function of the model
+Route::get('/post/{post}', function (Post $post) {
+    return view('post', ['post' => $post]);
 });
