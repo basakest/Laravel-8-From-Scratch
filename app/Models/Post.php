@@ -2,31 +2,60 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\File;
+use Spatie\YamlFrontMatter\Document;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 use SplFileInfo;
 
 class Post
 {
+    public $title;
+
+    public $excerpt;
+
+    public $date;
+
+    public $body;
+
+    public $slug;
+
+    /**
+     * @param $title
+     * @param $excerpt
+     * @param $date
+     * @param $body
+     * @param $slug
+     */
+    public function __construct($title, $excerpt, $date, $body, $slug)
+    {
+        $this->title = $title;
+        $this->excerpt = $excerpt;
+        $this->date = $date;
+        $this->body = $body;
+        $this->slug = $slug;
+    }
+
     public static function find(string $slug)
     {
-        $path = resource_path("posts/{$slug}.html");
-        if (!file_exists($path)) {
-            // 抛出这个异常, 且没有额外处理的情况下, 会返回一个 404 错误页面, 应该是统一做了异常处理
-            throw new ModelNotFoundException();
-            // return redirect('/');
-            // abort(404);
-        }
-        return cache()->remember("posts.{$slug}", now()->addMinutes(20), fn() => file_get_contents($path));
+        return static::all()->firstWhere('slug', $slug);
+        return cache()->remember("posts.{$slug}", now()->addMinutes(20), fn() => static::all()->firstWhere('slug', $slug));
     }
 
     /**
-     * @return array|string[]
+     * @return Collection
      */
-    public static function all(): array
+    public static function all(): Collection
     {
-        $path = resource_path("posts");
-        $files = File::allFiles($path);
-        return array_map(fn(SplFileInfo $file) => $file->getContents(), $files);
+        return collect(File::files(resource_path('posts')))
+            ->map(fn(SplFileInfo $file) => YamlFrontMatter::parseFile($file->getPathname()))
+            ->map(fn(Document $document) => new Post(
+                $document->title,
+                $document->excerpt,
+                $document->date,
+                $document->body(),
+                $document->slug,
+            ));
     }
 }
