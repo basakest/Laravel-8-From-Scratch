@@ -2,6 +2,8 @@
 
 use App\Models\Category;
 use App\Models\Post;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +18,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('posts', ['posts' => Post::all()]);
+    // 如何获取 Facade 类对应的实际类
+    // dd(get_class(DB::getFacadeRoot()));
+    // 或查阅 https://laravel.com/docs/10.x/facades#facade-class-reference
+    // Register a database query listener with the connection.
+    // todo: read the source code of EventServiceProvider
+    // DB::listen(function (Illuminate\Database\Events\QueryExecuted $query) {
+    //     Log::info($query->sql, $query->bindings);
+    // });
+    // the get method: Execute the query as a "select" statement.
+    // 视频中的 laravel8 用的 all() 方法似乎被移除了, 测试换成 get 可以正常执行
+    return view('posts', ['posts' => Post::with('category')->get()]);
 });
 
 // Route Model Binding
