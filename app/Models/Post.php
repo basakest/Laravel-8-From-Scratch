@@ -19,7 +19,7 @@ class Post extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['title', 'excerpt', 'body', 'category_id'];
+    protected $fillable = ['title', 'excerpt', 'body', 'category_id', 'user_id', 'slug'];
 
     /**
      * Get the route key for the model.
@@ -39,5 +39,13 @@ class Post extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

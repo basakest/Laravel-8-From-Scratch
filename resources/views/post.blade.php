@@ -7,7 +7,8 @@
             <h1>{{ $post->title }}</h1>
 
             <p>
-                <a href="category/{{ $post->category->slug }}">{{ $post->category->name }}</a>
+                {{-- 视频里用输入的标签包裹选中文字的快捷键是什么 --}}
+                By <a href="#">{{ $post->user->name }}</a> in <a href="category/{{ $post->category->slug }}">{{ $post->category->name }}</a>
             </p>
 
             <div>

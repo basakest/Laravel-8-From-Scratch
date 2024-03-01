@@ -28,7 +28,7 @@ Route::get('/', function () {
     // });
     // the get method: Execute the query as a "select" statement.
     // 视频中的 laravel8 用的 all() 方法似乎被移除了, 测试换成 get 可以正常执行
-    return view('posts', ['posts' => Post::with('category')->get()]);
+    return view('posts', ['posts' => Post::with(['category', 'user'])->get()]);
 });
 
 // Route Model Binding
