@@ -33,6 +33,7 @@ class UserFactory extends Factory
     }
 
     /**
+     * todo: 这个方法是干什么的
      * Indicate that the model's email address should be unverified.
      */
     public function unverified(): static

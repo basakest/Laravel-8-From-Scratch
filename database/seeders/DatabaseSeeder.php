@@ -20,56 +20,63 @@ class DatabaseSeeder extends Seeder
         // 或者手动调用 Model 类下的 truncate() 方法来清空已有记录
         // Model 类的 __call 方法会去调用 Illuminate\Database\Eloquent\Builder 下的方法
         // Run a truncate statement on the table.
-        User::truncate();
-        Post::truncate();
-        Category::truncate();
+        // User::truncate();
+        // Post::truncate();
+        // Category::truncate();
 
         // 如果 factory() 方法中指定了数字, 返回的是一个 collection
         // $user = User::factory(1)->create();
-        // 这样 $user 是一个 model 类对象实例
-        $user = User::factory()->create();
-
-        $personal = Category::create([
-            'name' => 'Personal',
-            'slug' => 'personal',
+        // User::factory()->create() 这样 $user 是一个 model 类对象实例
+        $user = User::factory()->create([
+            // 如果这里对某些列的值进行了指定, 将覆盖对应 Factory 类在 definition 方法中的定义
+            'name' => 'basakest',
         ]);
 
-        $family = Category::create([
-            'name' => 'Family',
-            'slug' => 'family',
+        Post::factory(5)->create([
+            'user_id' => $user->id,
         ]);
 
-        $work = Category::create([
-            'name' => 'Work',
-            'slug' => 'work',
-        ]);
-
-        Post::create([
-            'category_id' => $personal->id,
-            'user_id'     => $user->id,
-            'title'       => 'My Personal Post',
-            'slug'        => 'my-personal-post',
-            'excerpt'     => 'This is a personal post.',
-            'body'        => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
-        ]);
-
-        Post::create([
-            'category_id' => $family->id,
-            'user_id'     => $user->id,
-            'title'       => 'My Family Post',
-            'slug'        => 'my-family-post',
-            'excerpt'     => 'This is a family post.',
-            'body'        => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
-        ]);
-
-        Post::create([
-            'category_id' => $work->id,
-            'user_id'     => $user->id,
-            'title'       => 'My work Post',
-            'slug'        => 'my-work-post',
-            'excerpt'     => 'This is a work post.',
-            'body'        => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
-        ]);
+        // $personal = Category::create([
+        //     'name' => 'Personal',
+        //     'slug' => 'personal',
+        // ]);
+        //
+        // $family = Category::create([
+        //     'name' => 'Family',
+        //     'slug' => 'family',
+        // ]);
+        //
+        // $work = Category::create([
+        //     'name' => 'Work',
+        //     'slug' => 'work',
+        // ]);
+        //
+        // Post::create([
+        //     'category_id' => $personal->id,
+        //     'user_id'     => $user->id,
+        //     'title'       => 'My Personal Post',
+        //     'slug'        => 'my-personal-post',
+        //     'excerpt'     => 'This is a personal post.',
+        //     'body'        => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+        // ]);
+        //
+        // Post::create([
+        //     'category_id' => $family->id,
+        //     'user_id'     => $user->id,
+        //     'title'       => 'My Family Post',
+        //     'slug'        => 'my-family-post',
+        //     'excerpt'     => 'This is a family post.',
+        //     'body'        => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+        // ]);
+        //
+        // Post::create([
+        //     'category_id' => $work->id,
+        //     'user_id'     => $user->id,
+        //     'title'       => 'My work Post',
+        //     'slug'        => 'my-work-post',
+        //     'excerpt'     => 'This is a work post.',
+        //     'body'        => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+        // ]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
