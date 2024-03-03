@@ -8,7 +8,7 @@
 
             <p>
                 {{-- 视频里用输入的标签包裹选中文字的快捷键是什么 --}}
-                By <a href="#">{{ $post->user->name }}</a> in <a href="category/{{ $post->category->slug }}">{{ $post->category->name }}</a>
+                By <a href="authors/{{ $post->author->username }}">{{ $post->author->name }}</a> in <a href="category/{{ $post->category->slug }}">{{ $post->category->name }}</a>
             </p>
 
             <div>

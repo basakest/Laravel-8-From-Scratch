@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -28,7 +29,7 @@ Route::get('/', function () {
     // });
     // the get method: Execute the query as a "select" statement.
     // 视频中的 laravel8 用的 all() 方法似乎被移除了, 测试换成 get 可以正常执行
-    return view('posts', ['posts' => Post::with(['category', 'user'])->get()]);
+    return view('posts', ['posts' => Post::with(['category', 'author'])->orderByDesc('published_at')->get()]);
 });
 
 // Route Model Binding
@@ -42,5 +43,10 @@ Route::get('/post/{post}', function (Post $post) {
 });
 
 Route::get('category/{category:slug}', function (Category $category) {
+    // 这里的 posts 不要换成 posts(), 换了的话会导致返回的结果不是一个 collection 对象
     return view('posts', ['posts' => $category->posts]);
+});
+
+Route::get('authors/{author:username}', function (User $author) {
+    return view('posts', ['posts' => $author->posts]);
 });
