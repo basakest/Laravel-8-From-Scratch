@@ -22,6 +22,13 @@ class Post extends Model
     protected $fillable = ['title', 'excerpt', 'body', 'category_id', 'user_id', 'slug'];
 
     /**
+     * The relations to eager load on every query.
+     *
+     * @var string[]
+     */
+    protected $with = ['author', 'category'];
+
+    /**
      * Get the route key for the model.
      *
      * @return string
