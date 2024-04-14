@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    // tailwind
     // 如何获取 Facade 类对应的实际类
     // dd(get_class(DB::getFacadeRoot()));
     // 或查阅 https://laravel.com/docs/10.x/facades#facade-class-reference
@@ -63,5 +64,6 @@ Route::get('authors/{author:username}', function (User $author) {
     // load: Load a set of relationships onto the collection.
     // 看上去就是取了 Collection 中的第一个 Model, 实例化了一个 Query, 然后调用了预加载方法
     // return view('posts', ['posts' => $author->posts->load(['category', 'author'])]);
+    // dd($author->posts);
     return view('posts', ['posts' => $author->posts]);
-});
+})->name('author.posts');

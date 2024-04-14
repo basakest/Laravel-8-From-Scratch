@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'basakest',
         ]);
 
-        Post::factory(5)->create([
+        Post::factory(25)->create([
             'user_id' => $user->id,
         ]);
 

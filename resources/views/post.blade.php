@@ -8,7 +8,10 @@
 
             <p>
                 {{-- 视频里用输入的标签包裹选中文字的快捷键是什么 --}}
-                By <a href="authors/{{ $post->author->username }}">{{ $post->author->name }}</a> in <a href="category/{{ $post->category->slug }}">{{ $post->category->name }}</a>
+                {{-- 在某一用户发表过的 post 列表下, 这个链接似乎是有问题的, 生成的 url 中 http://blog.test/authors/authors/kjerde 多了一个 authors --}}
+
+                 {{-- By <a href="authors/{{ $post->author->username }}">{{ $post->author->name }}</a> in <a href="category/{{ $post->category->slug }}">{{ $post->category->name }}</a> --}}
+                 By <a href="{{ route('author.posts', [$post->author->username]) }}">{{ $post->author->name }}</a> in <a href="category/{{ $post->category->slug }}">{{ $post->category->name }}</a>
             </p>
 
             <div>
