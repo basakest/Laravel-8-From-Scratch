@@ -10,6 +10,7 @@
     <nav class="md:flex md:justify-between md:items-center">
         <div>
             <a href="/">
+                {{-- 2024/04/15 测试前面加 . 好像不可以, 之前测试时有缓存吗 --}}
                 {{-- 最初时的 ./images/logo.svg, 测试也可以访问到, 但视频中不行, 是新版本的 laravel 做了调整吗 --}}
                 {{-- 如果是以 index.php 为入口文件, 感觉相对路径也找得到 --}}
                 <img src="/images/logo.svg" alt="Laracasts Logo" width="165" height="16">
