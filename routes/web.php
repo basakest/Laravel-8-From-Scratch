@@ -35,7 +35,11 @@ Route::get('/', function () {
     // 另外, 通过在对应的 model 类中添加 $with 属性, 可以在每次查询时自动加载指定的关联, 可以省略掉对 with, load 方法的调用
     // 如果在某些情况下不需要 auto/eager 加载对应的 relation, 可以使用 without('category', 'author') 方法
     // return view('posts', ['posts' => Post::with(['category', 'author'])->orderByDesc('published_at')->get()]);
-    return view('posts', ['posts' => Post::orderByDesc('published_at')->get()]);
+    // return view('posts', ['posts' => Post::latest('')->get()]);
+    return view('posts', [
+        'posts'      => Post::orderByDesc('published_at')->get(),
+        'categories' => Category::all(),
+    ]);
 });
 
 // Route Model Binding
@@ -51,7 +55,11 @@ Route::get('/post/{post}', function (Post $post) {
 Route::get('category/{category:slug}', function (Category $category) {
     // 这里的 posts 不要换成 posts(), 换了的话会导致返回的结果不是一个 collection 对象
     // return view('posts', ['posts' => $category->posts->load(['category', 'author'])]);
-    return view('posts', ['posts' => $category->posts]);
+    return view('posts', [
+        'posts'           => $category->posts,
+        'categories'      => Category::all(),
+        'currentCategory' => $category,
+    ]);
 });
 
 Route::get('authors/{author:username}', function (User $author) {
@@ -65,5 +73,8 @@ Route::get('authors/{author:username}', function (User $author) {
     // 看上去就是取了 Collection 中的第一个 Model, 实例化了一个 Query, 然后调用了预加载方法
     // return view('posts', ['posts' => $author->posts->load(['category', 'author'])]);
     // dd($author->posts);
-    return view('posts', ['posts' => $author->posts]);
+    return view('posts', [
+        'posts'      => $author->posts,
+        'categories' => Category::all(),
+    ]);
 })->name('author.posts');
