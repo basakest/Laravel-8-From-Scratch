@@ -40,7 +40,7 @@ Route::get('/', function () {
         'posts'      => Post::orderByDesc('published_at')->get(),
         'categories' => Category::all(),
     ]);
-});
+})->name('home');
 
 // Route Model Binding
 // when you type hint a model in the corresponding route function(the Post before $post),

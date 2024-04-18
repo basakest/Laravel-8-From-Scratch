@@ -39,7 +39,7 @@
 
             <footer class="flex justify-between items-center mt-8">
                 <div class="flex items-center text-sm">
-                    <img src="./images/lary-avatar.svg" alt="Lary avatar">
+                    <img src="/images/lary-avatar.svg" alt="Lary avatar">
                     <div class="ml-3">
                         <h5 class="font-bold">
                             <a href="authors/{{ $post->author->username }}">
