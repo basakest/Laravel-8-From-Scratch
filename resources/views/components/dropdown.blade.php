@@ -12,7 +12,7 @@
     {{-- absolute 确保下拉框不会让下面的内容被挤下去 --}}
     {{-- display: none 处理页面刷新时由于 js 未加载导致的内容闪动问题 --}}
     {{-- links --}}
-    <div x-show="show" class="py-2 absolute bg-gray-100 w-full mt-2 rounded-xl z-50" style="display: none">
+    <div x-show="show" class="py-2 absolute bg-gray-100 w-full mt-2 rounded-xl z-50 overflow-auto max-h-52" style="display: none">
         {{ $slot }}
     </div>
 </div>

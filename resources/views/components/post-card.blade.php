@@ -7,7 +7,7 @@
     <div class="py-6 px-5">
         <div>
             {{-- 这里用 . 就可以访问到图片 --}}
-            <img src="./images/illustration-3.png" alt="Blog Post illustration" class="rounded-xl">
+            <img src="/images/illustration-3.png" alt="Blog Post illustration" class="rounded-xl">
         </div>
 
         <div class="mt-8 flex flex-col justify-between">
@@ -27,10 +27,8 @@
                 </div>
             </header>
 
-            <div class="text-sm mt-4">
-                <p>
-                    {{ $post->excerpt }}
-                </p>
+            <div class="text-sm mt-4 space-y-4">
+                    {!! $post->excerpt !!}
 
                 {{-- <p class="mt-4"> --}}
                 {{--     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. --}}
@@ -42,7 +40,7 @@
                     <img src="/images/lary-avatar.svg" alt="Lary avatar">
                     <div class="ml-3">
                         <h5 class="font-bold">
-                            <a href="authors/{{ $post->author->username }}">
+                            <a href="/authors/{{ $post->author->username }}">
                                 {{ $post->author->name }}
                             </a>
                         </h5>

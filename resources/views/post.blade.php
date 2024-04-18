@@ -51,7 +51,7 @@
                     </h1>
 
                     <div class="space-y-4 lg:text-lg leading-loose">
-                        <p> {{ $post->body }} </p>
+                        {!! $post->body !!}
                     </div>
                 </div>
             </article>
