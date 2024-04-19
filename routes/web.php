@@ -19,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    $posts = Post::orderByDesc('published_at');
+    if (request('search')) {
+        $posts = $posts->where('title', 'like', '%' . request('search') . '%')->
+            orWhere('body', 'like', '%' . request('search') . '%');
+    }
     // tailwind
     // 如何获取 Facade 类对应的实际类
     // dd(get_class(DB::getFacadeRoot()));
@@ -37,7 +42,7 @@ Route::get('/', function () {
     // return view('posts', ['posts' => Post::with(['category', 'author'])->orderByDesc('published_at')->get()]);
     // return view('posts', ['posts' => Post::latest('')->get()]);
     return view('posts', [
-        'posts'      => Post::orderByDesc('published_at')->get(),
+        'posts'      => $posts->get(),
         'categories' => Category::all(),
     ]);
 })->name('home');
