@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Builder;
 
 class Post extends Model
 {
@@ -54,5 +55,21 @@ class Post extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * To define a local scope in a model class, prefix an Eloquent model method with scope.
+     *
+     * @return void
+     */
+    public function scopeFilter(Builder $query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            // $search is the first argument when calling when method
+            $query->where('title', 'like', '%' . $search . '%')->
+                orWhere('body', 'like', '%' . $search . '%');
+        });
+        // Scopes should always return the same query builder instance or void
+        // query scope will auto return the query builder?
     }
 }
