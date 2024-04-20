@@ -29,15 +29,15 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 // or you can override the getRouteKeyName function of the model
 Route::get('/post/{post}', [PostController::class, 'show']);
 
-Route::get('category/{category:slug}', function (Category $category) {
-    // 这里的 posts 不要换成 posts(), 换了的话会导致返回的结果不是一个 collection 对象
-    // return view('posts', ['posts' => $category->posts->load(['category', 'author'])]);
-    return view('posts', [
-        'posts'           => $category->posts,
-        'categories'      => Category::all(),
-        'currentCategory' => $category,
-    ]);
-});
+// Route::get('category/{category:slug}', function (Category $category) {
+//     // 这里的 posts 不要换成 posts(), 换了的话会导致返回的结果不是一个 collection 对象
+//     // return view('posts', ['posts' => $category->posts->load(['category', 'author'])]);
+//     return view('posts', [
+//         'posts'           => $category->posts,
+//         'categories'      => Category::all(),
+//         'currentCategory' => $category,
+//     ]);
+// });
 
 Route::get('authors/{author:username}', function (User $author) {
     // Illuminate\Database\Eloquent\Collection 类下存在 load 这个方法, 但实际上是用其中的第一个元素来调用的

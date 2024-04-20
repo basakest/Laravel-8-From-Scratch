@@ -11,10 +11,17 @@
         <div class="flex-1 flex flex-col justify-between">
             <header class="mt-8 lg:mt-0">
                 <div class="space-x-2">
-                    <a href="category/{{ $post->category->slug }}"
-                        class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold"
-                        style="font-size: 10px">{{ $post->category->name }}
-                    </a>
+                    {{-- :category 不加 : 的话, 只能传递字符串 --}}
+                    {{-- Attempt to read property "slug" on string --}}
+                    {{-- <x-category-button category="{{ $post->category }}" /> --}}
+                    {{-- 加了 : 的话, 就不用在 "" 里加 {{ }} 了 --}}
+                    {{-- <x-category-button :category="{{ $post->category }}" /> --}}
+                    {{-- syntax error, unexpected token "<" --}}
+                     <x-category-button :category="$post->category" />
+                    {{-- <a href="?category={{ $post->category->slug }}" --}}
+                    {{--     class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold" --}}
+                    {{--     style="font-size: 10px">{{ $post->category->name }} --}}
+                    {{-- </a> --}}
 
                     {{-- <a href="#" --}}
                     {{--    class="px-3 py-1 border border-red-300 rounded-full text-red-300 text-xs uppercase font-semibold" --}}

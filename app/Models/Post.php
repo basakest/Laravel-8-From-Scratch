@@ -64,10 +64,21 @@ class Post extends Model
      */
     public function scopeFilter(Builder $query, array $filters)
     {
-        $query->when($filters['search'] ?? false, function ($query, $search) {
+        $query->when($filters['search'] ?? false, function (Builder $query, string $search) {
             // $search is the first argument when calling when method
             $query->where('title', 'like', '%' . $search . '%')->
                 orWhere('body', 'like', '%' . $search . '%');
+        });
+
+        $query->when($filters['category'] ?? false, function (Builder $query, string $category) {
+            // $query->whereExists(function (\Illuminate\Database\Query\Builder $query) use ($category) {
+            //     $query->from('categories')
+            //         ->whereColumn('categories.id', '=', 'posts.category_id')
+            //         ->where('slug', $category);
+            // });
+            $query->whereHas('category', function (Builder $query) use ($category) {
+                $query->where('slug', $category);
+            });
         });
         // Scopes should always return the same query builder instance or void
         // query scope will auto return the query builder?

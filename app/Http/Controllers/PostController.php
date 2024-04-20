@@ -30,8 +30,9 @@ class PostController extends Controller
         // return view('posts', ['posts' => Post::with(['category', 'author'])->orderByDesc('published_at')->get()]);
         // return view('posts', ['posts' => Post::latest('')->get()]);
         return view('posts', [
-            'posts'      => Post::filter(request(['search']))->get(),
-            'categories' => Category::all(),
+            'posts'           => Post::filter(request(['search', 'category']))->get(),
+            'categories'      => Category::all(),
+            'currentCategory' => request('category') ? Category::firstWhere('slug', request('category')) : null,
         ]);
     }
 
