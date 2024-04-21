@@ -20,7 +20,7 @@
                 {{-- :selected="request()->is('categories/' . $category->slug)" --}}
                 {{-- :selected="(isset($currentCategory) && $currentCategory->id === $category->id)" --}}
                 {{-- href 属性会被自动加到 component 中的 <a> 标签内 --}}
-                href="/?category={{ $category->slug }}"
+                href="/?category={{ $category->slug }}&{{ http_build_query(request()->except('category')) }}"
         >
             {{ ucwords($category->name)}}
         </x-dropdown-item>
