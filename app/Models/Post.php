@@ -66,8 +66,12 @@ class Post extends Model
     {
         $query->when($filters['search'] ?? false, function (Builder $query, string $search) {
             // $search is the first argument when calling when method
-            $query->where('title', 'like', '%' . $search . '%')->
-                orWhere('body', 'like', '%' . $search . '%');
+            // 这里需要将 where title 和 orWhere body 对应的部分用括号包成一部分
+            // 否则下面 whereHas 对应的 exists 语句只会对 orWhere body 生效, 导致查询出与预期不符的数据
+            $query->where(function (Builder $query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')->
+                    orWhere('body', 'like', '%' . $search . '%');
+            });
         });
 
         $query->when($filters['category'] ?? false, function (Builder $query, string $category) {
