@@ -52,6 +52,6 @@ Route::get('authors/{author:username}', function (User $author) {
     // dd($author->posts);
     return view('posts', [
         'posts'      => $author->posts,
-        'categories' => Category::all(),
+        // 'categories' => Category::all(),
     ]);
 })->name('author.posts');

@@ -29,15 +29,17 @@ class PostController extends Controller
         // 如果在某些情况下不需要 auto/eager 加载对应的 relation, 可以使用 without('category', 'author') 方法
         // return view('posts', ['posts' => Post::with(['category', 'author'])->orderByDesc('published_at')->get()]);
         // return view('posts', ['posts' => Post::latest('')->get()]);
-        return view('posts', [
-            'posts'           => Post::filter(request(['search', 'category']))->get(),
-            'categories'      => Category::all(),
-            'currentCategory' => request('category') ? Category::firstWhere('slug', request('category')) : null,
+        return view('posts.index', [
+            'posts'      => Post::filter(request(['search', 'category']))->get(),
+            'categories' => Category::all(),
+            // 为 view 创建了对应的 component 后, view 似乎就只从 component 中获取数据了
+            // 好像也不需要调用 @props[] 了
+            // 'currentCategory' => request('category') ? Category::firstWhere('slug', request('category')) : null,
         ]);
     }
 
     public function show(Post $post)
     {
-        return view('post', ['post' => $post]);
+        return view('posts.show', ['post' => $post]);
     }
 }
