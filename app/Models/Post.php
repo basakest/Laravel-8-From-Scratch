@@ -80,6 +80,12 @@ class Post extends Model
                 $query->where('slug', $category);
             });
         });
+
+        $query->when($filters['author'] ?? false, function (Builder $query, string $author) {
+            $query->whereHas('author', function (Builder $query) use ($author) {
+                $query->where('username', $author);
+            });
+        });
         // Scopes should always return the same query builder instance or void
         // query scope will auto return the query builder?
     }

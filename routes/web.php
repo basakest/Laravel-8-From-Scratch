@@ -39,19 +39,19 @@ Route::get('/post/{post}', [PostController::class, 'show']);
 //     ]);
 // });
 
-Route::get('authors/{author:username}', function (User $author) {
-    // Illuminate\Database\Eloquent\Collection 类下存在 load 这个方法, 但实际上是用其中的第一个元素来调用的
-    // The load() method in Laravel is used to load relationships on a model that has already been retrieved from the database.
-    // it allows you to load relationships on-demand, based on your specific needs. It provides flexibility in choosing which relationships to load, depending on the context of your application.
-    // A key difference between with() and load() lies in how and when the related models are fetched. With with(), the related models are fetched in the initial query, while with load(), the related models are fetched separately as needed.
-    //
-    // Using the load() method can be advantageous when you want to control the loading of relationships dynamically, based on runtime conditions or specific user actions. It allows you to minimize unnecessary queries and optimize performance by loading only the relationships that are necessary in a given context.
-    // load: Load a set of relationships onto the collection.
-    // 看上去就是取了 Collection 中的第一个 Model, 实例化了一个 Query, 然后调用了预加载方法
-    // return view('posts', ['posts' => $author->posts->load(['category', 'author'])]);
-    // dd($author->posts);
-    return view('posts', [
-        'posts'      => $author->posts,
-        // 'categories' => Category::all(),
-    ]);
-})->name('author.posts');
+// Route::get('authors/{author:username}', function (User $author) {
+//     // Illuminate\Database\Eloquent\Collection 类下存在 load 这个方法, 但实际上是用其中的第一个元素来调用的
+//     // The load() method in Laravel is used to load relationships on a model that has already been retrieved from the database.
+//     // it allows you to load relationships on-demand, based on your specific needs. It provides flexibility in choosing which relationships to load, depending on the context of your application.
+//     // A key difference between with() and load() lies in how and when the related models are fetched. With with(), the related models are fetched in the initial query, while with load(), the related models are fetched separately as needed.
+//     //
+//     // Using the load() method can be advantageous when you want to control the loading of relationships dynamically, based on runtime conditions or specific user actions. It allows you to minimize unnecessary queries and optimize performance by loading only the relationships that are necessary in a given context.
+//     // load: Load a set of relationships onto the collection.
+//     // 看上去就是取了 Collection 中的第一个 Model, 实例化了一个 Query, 然后调用了预加载方法
+//     // return view('posts', ['posts' => $author->posts->load(['category', 'author'])]);
+//     // dd($author->posts);
+//     return view('posts.index', [
+//         'posts'      => $author->posts,
+//         // 'categories' => Category::all(),
+//     ]);
+// })->name('author.posts');
