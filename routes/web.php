@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RegisterController;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
@@ -55,3 +56,6 @@ Route::get('/post/{post}', [PostController::class, 'show']);
 //         // 'categories' => Category::all(),
 //     ]);
 // })->name('author.posts');
+
+Route::get('register', [RegisterController::class, 'create']);
+Route::post('register', [RegisterController::class, 'store']);
