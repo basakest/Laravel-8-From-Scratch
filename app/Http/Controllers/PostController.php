@@ -30,10 +30,12 @@ class PostController extends Controller
         // return view('posts', ['posts' => Post::with(['category', 'author'])->orderByDesc('published_at')->get()]);
         // return view('posts', ['posts' => Post::latest('')->get()]);
         return view('posts.index', [
-            'posts'      => Post::filter(request(['search', 'category']))->get(),
-            'categories' => Category::all(),
+            'posts' => Post::filter(
+                request(['search', 'category'])
+            )->paginate(10)->withQueryString()
             // 为 view 创建了对应的 component 后, view 似乎就只从 component 中获取数据了
             // 好像也不需要调用 @props[] 了
+            // 'categories' => Category::all(),
             // 'currentCategory' => request('category') ? Category::firstWhere('slug', request('category')) : null,
         ]);
     }

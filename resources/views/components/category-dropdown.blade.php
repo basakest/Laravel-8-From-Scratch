@@ -7,8 +7,8 @@
             <x-svg-icon name="down-arrow" class="absolute pointer-events-none" style="right: 12px;" />
         </button>
     </x-slot>
-    {{--                :name="", "" 里不用加 {{  }}--}}
-    <x-dropdown-item href="/" :selected="request()->routeIs('home') && request('category') == null">All</x-dropdown-item>
+    {{-- :name="", "" 里不用加 {{  }}--}}
+    <x-dropdown-item href="/?{{ http_build_query(request()->except(['category', 'page'])) }}" :selected="request()->routeIs('home') && request('category') == null">All</x-dropdown-item>
     {{-- <a href="/" class="block text-left px-3 text-sm leading-6 hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white"> --}}
     {{--     All --}}
     {{-- </a> --}}
@@ -20,7 +20,7 @@
                 {{-- :selected="request()->is('categories/' . $category->slug)" --}}
                 {{-- :selected="(isset($currentCategory) && $currentCategory->id === $category->id)" --}}
                 {{-- href 属性会被自动加到 component 中的 <a> 标签内 --}}
-                href="/?category={{ $category->slug }}&{{ http_build_query(request()->except('category')) }}"
+                href="/?category={{ $category->slug }}&{{ http_build_query(request()->except(['category', 'page'])) }}"
         >
             {{ ucwords($category->name)}}
         </x-dropdown-item>
