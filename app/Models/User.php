@@ -46,6 +46,18 @@ class User extends Authenticatable
     ];
 
     /**
+     * mutator/setter for password
+     *
+     * @param string $password
+     *
+     * @return void
+     */
+    public function setPasswordAttribute(string $password): void
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
+    /**
      * @return HasMany
      */
     public function posts(): HasMany

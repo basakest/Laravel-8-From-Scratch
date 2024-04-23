@@ -32,7 +32,7 @@ class PostController extends Controller
         return view('posts.index', [
             'posts' => Post::filter(
                 request(['search', 'category'])
-            )->paginate(10)->withQueryString()
+            )->paginate(6)->withQueryString()
             // 为 view 创建了对应的 component 后, view 似乎就只从 component 中获取数据了
             // 好像也不需要调用 @props[] 了
             // 'categories' => Category::all(),
