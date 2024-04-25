@@ -91,9 +91,8 @@
                     @endphp
                     <select name="category_id" id="category_id">
                         @foreach($catrgories as $category)
-                            <option value="{{ $category->id }}">
+                            <option value="{{ $category->id }}" {{ !($category->id == old('category_id')) ?: 'selected' }}>
                                 {{ ucwords($category->name) }}
-                                {{ $category->id == old('category_id') ?? 'selected' }}
                             </option>
                         @endforeach
                     </select>
