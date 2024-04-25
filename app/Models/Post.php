@@ -53,7 +53,7 @@ class Post extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['title', 'excerpt', 'body', 'category_id', 'user_id', 'slug'];
+    // protected $fillable = ['title', 'excerpt', 'body', 'category_id', 'user_id', 'slug'];
 
     /**
      * The relations to eager load on every query.
