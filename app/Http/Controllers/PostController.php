@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -32,7 +33,7 @@ class PostController extends Controller
         return view('posts.index', [
             'posts' => Post::filter(
                 request(['search', 'category'])
-            )->paginate(6)->withQueryString()
+            )->orderByDesc('id')->paginate(6)->withQueryString()
             // 为 view 创建了对应的 component 后, view 似乎就只从 component 中获取数据了
             // 好像也不需要调用 @props[] 了
             // 'categories' => Category::all(),
@@ -48,5 +49,19 @@ class PostController extends Controller
     public function create()
     {
         return view('posts.create');
+    }
+
+    public function store()
+    {
+        $attributes = request()->validate([
+            'title'       => 'required',
+            'excerpt'     => 'required',
+            'slug'        => ['required', Rule::unique('categories', 'slug')],
+            'body'        => 'required',
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+        ]);
+        $attributes['user_id'] = auth()->id();
+        Post::create($attributes);
+        return redirect('/');
     }
 }
