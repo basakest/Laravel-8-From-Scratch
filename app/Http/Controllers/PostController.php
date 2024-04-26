@@ -53,14 +53,17 @@ class PostController extends Controller
 
     public function store()
     {
+        // request('thumbnail'), request()->file('thumbnail') 返回了相同的 Illuminate\Http\UploadedFile 类实例
         $attributes = request()->validate([
             'title'       => 'required',
             'excerpt'     => 'required',
+            'thumbnail'   => 'required|image',
             'slug'        => ['required', Rule::unique('categories', 'slug')],
             'body'        => 'required',
             'category_id' => ['required', Rule::exists('categories', 'id')],
         ]);
         $attributes['user_id'] = auth()->id();
+        $attributes['thumbnail'] = request('thumbnail')->store('thumbnails');
         Post::create($attributes);
         return redirect('/');
     }

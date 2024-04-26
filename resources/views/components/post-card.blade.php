@@ -6,8 +6,14 @@
         {{ $attributes->merge(['class' => 'transition-colors duration-300 hover:bg-gray-100 border border-black border-opacity-0 hover:border-opacity-5 rounded-xl']) }}>
     <div class="py-6 px-5">
         <div>
-            {{-- 这里用 . 就可以访问到图片 --}}
-            <img src="/images/illustration-3.png" alt="Blog Post illustration" class="rounded-xl">
+            @if($post->thumbnail)
+                {{-- 这里没有指定图片的样式, 显示上可能有些问题, 如手动上传的图片大小和默认的不一致 --}}
+                {{-- The asset function generates a URL for an asset using the current scheme of the request (HTTP or HTTPS) --}}
+                <img src="{{ asset($post->thumbnail) }}" alt="Blog Post illustration" class="rounded-xl">
+            @else
+                {{-- 这里用 . 就可以访问到图片 --}}
+                <img src="/images/illustration-1.png" alt="Blog Post illustration" class="rounded-xl">
+            @endif
         </div>
 
         <div class="mt-8 flex flex-col justify-between">

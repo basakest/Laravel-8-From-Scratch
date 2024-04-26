@@ -29,7 +29,9 @@ class DatabaseSeeder extends Seeder
         // User::factory()->create() 这样 $user 是一个 model 类对象实例
         $user = User::factory()->create([
             // 如果这里对某些列的值进行了指定, 将覆盖对应 Factory 类在 definition 方法中的定义
-            'name' => 'basakest',
+            'name'     => 'basakest',
+            'username' => 'basakest',
+            'email'    => '1652759879@qq.com',
         ]);
 
         Post::factory(25)->create([
