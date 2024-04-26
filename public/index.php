@@ -43,7 +43,10 @@ require __DIR__.'/../vendor/autoload.php';
 | to this client's browser, allowing them to enjoy our application.
 |
 */
-
+// 使用 herd 频繁出现 nginx 502 报错, php-fpm 日志中找到了如下内容 [pool herd] child 11377 exited with code 124 after 21.353355 seconds from start
+// 改为 php artisan server 的形式, 进行登录操作仍会产生 Fatal error: Maximum execution time of 30+2 seconds exceeded (terminated) in vendor/laravel/framework/src/Illuminate/Hashing/AbstractHasher.php on line 32. 报错
+// 具体原因不明, 重启电脑可以解决这个问题, 但过段时间仍会出现
+set_time_limit(0);
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
 $kernel = $app->make(Kernel::class);
