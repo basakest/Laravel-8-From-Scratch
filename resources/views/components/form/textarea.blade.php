@@ -9,7 +9,7 @@
         class="border border-gray-200 p-2 w-full rounded"
         required
     >
-        {{ old($name) }}
+        {{ $slot ?? old($name) }}
     </textarea>
 
     <x-form.error name="{{ $name }}" />

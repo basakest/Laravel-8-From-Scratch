@@ -25,6 +25,8 @@ use \Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Comment wherePostId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUserId($value)
+ * @property-read \App\Models\User $author
+ * @property-read \App\Models\Post $post
  * @mixin \Eloquent
  */
 class Comment extends Model

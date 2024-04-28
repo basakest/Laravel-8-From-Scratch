@@ -38,6 +38,10 @@ use \Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static Builder|Post whereTitle($value)
  * @method static Builder|Post whereUpdatedAt($value)
  * @method static Builder|Post whereUserId($value)
+ * @property string|null $thumbnail
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read int|null $comments_count
+ * @method static Builder|Post whereThumbnail($value)
  * @mixin \Eloquent
  */
 class Post extends Model
