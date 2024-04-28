@@ -21,11 +21,11 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                            Published
-                                        </span>
-                                    </td>
+                                    {{-- <td class="px-6 py-4 whitespace-no-wrap"> --}}
+                                    {{--     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> --}}
+                                    {{--         Published --}}
+                                    {{--     </span> --}}
+                                    {{-- </td> --}}
                                     <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
                                         <a href="/admin/posts/{{ $post->slug }}/edit" class="text-blue-500 hover:text-blue-600">Edit</a>
                                     </td>

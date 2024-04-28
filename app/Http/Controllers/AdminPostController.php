@@ -23,17 +23,10 @@ class AdminPostController extends Controller
     public function store(): RedirectResponse
     {
         // request('thumbnail'), request()->file('thumbnail') 返回了相同的 Illuminate\Http\UploadedFile 类实例
-        $attributes = request()->validate([
-            'title'       => 'required',
-            'excerpt'     => 'required',
-            'thumbnail'   => 'required|image',
-            'slug'        => ['required', Rule::unique('posts', 'slug')],
-            'body'        => 'required',
-            'category_id' => ['required', Rule::exists('categories', 'id')],
-        ]);
-        $attributes['user_id'] = auth()->id();
-        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
-        Post::create($attributes);
+        Post::create(array_merge($this->validatePosts(), [
+            'user_id' => auth()->id(),
+            'thumbnail' => request()->file('thumbnail')->store('thumbnails'),
+        ]));
         return redirect('/');
     }
 
@@ -44,14 +37,7 @@ class AdminPostController extends Controller
 
     public function update(Post $post): RedirectResponse
     {
-        $attributes = request()->validate([
-            'title'       => 'required',
-            'excerpt'     => 'required',
-            'thumbnail'   => 'image',
-            'slug'        => ['required', Rule::unique('posts', 'slug')->ignore($post->id)],
-            'body'        => 'required',
-            'category_id' => ['required', Rule::exists('categories', 'id')],
-        ]);
+        $attributes = $this->validatePost($post);
         if (isset($attributes['thumbnail'])) {
             $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
         }
@@ -63,5 +49,23 @@ class AdminPostController extends Controller
     {
         $post->delete();
         return back()->with('success', 'Post Deleted!');
+    }
+
+    /**
+     * @param Post|null $post
+     *
+     * @return array
+     */
+    public function validatePosts(?Post $post = null): array
+    {
+        $post ??= new Post();
+        return request()->validate([
+            'title'       => 'required',
+            'excerpt'     => 'required',
+            'thumbnail'   => $post->exists ? ['image'] : ['image', 'required'],
+            'slug'        => ['required', Rule::unique('posts', 'slug')->ignore($post)],
+            'body'        => 'required',
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+        ]);
     }
 }
