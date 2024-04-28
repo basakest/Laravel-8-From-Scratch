@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             'name'     => 'basakest',
             'username' => 'basakest',
             'email'    => '1652759879@qq.com',
+            'password' => bcrypt('password'),
         ]);
 
         Post::factory(25)->create([
