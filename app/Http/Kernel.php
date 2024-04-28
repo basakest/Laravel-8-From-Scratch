@@ -66,6 +66,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         // 在这里指定中间件也可以在 web.php 中使用
-        'admin' => AdminOnly::class,
+        // 'admin' => AdminOnly::class,
     ];
 }
